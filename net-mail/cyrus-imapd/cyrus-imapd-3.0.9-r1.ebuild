@@ -11,7 +11,7 @@ SRC_URI="https://github.com/cyrusimap/${PN}/releases/download/${P}/${P}.tar.gz"
 LICENSE="BSD-with-attribution"
 SLOT="0"
 KEYWORDS="~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc ~x86"
-IUSE="afs backup calalarm caps clamav http kerberos ldap lmdb \
+IUSE="afs backup calalarm caps clamav http jmap kerberos ldap lmdb \
 	mysql nntp pam perl postgres replication +server sieve snmp \
 	sphinx sqlite ssl static-libs tcpd test xapian"
 
@@ -60,6 +60,7 @@ REQUIRED_USE="afs? ( kerberos )
 	backup? ( sqlite )
 	calalarm? ( http )
 	http? ( sqlite )
+        jmap? ( http xapian )
 	sphinx? ( mysql )"
 
 # https://bugs.gentoo.org/678754
@@ -121,6 +122,7 @@ src_configure() {
 		$(use_with clamav) \
 		$(use_enable nntp) \
 		$(use_enable http) \
+                $(use_enable jmap) \
 		$(use_enable replication) \
 		$(use_enable kerberos gssapi) \
 		$(use_with ldap) \
